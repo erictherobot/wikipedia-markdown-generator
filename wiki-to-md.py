@@ -26,7 +26,11 @@ def generate_markdown(topic):
         ):
             markdown_text += f"{sections[i]}\n{sections[i+1]}\n\n"
 
-    filename = f'{topic.replace(" ", "_")}.md'
+    # Create a directory for markdown files
+    directory = "md_output"
+    os.makedirs(directory, exist_ok=True)
+
+    filename = os.path.join(directory, f"{topic.replace(' ', '_')}.md")
 
     with open(filename, "w") as md_file:
         md_file.write(markdown_text)
