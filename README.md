@@ -22,7 +22,9 @@ python3 wiki-to-md.py <topic_name>
 
 ## Output
 
-The output is a Markdown file with the same name as the topic name in your current directory.
+The output is a Markdown file with the same name as the topic name under the newly created directory `md_output` if using `wiki-to-md.py`. If you want to download images too, use the `wiki-to-md-images.py` file and the images will be placed inside `md_output/images/`.
+
+> Note: eventually, `wiki-to-md.py` and `wiki-to-md-images.py` will be combined into one script with a flag to download images or not.
 
 ## Why?
 
