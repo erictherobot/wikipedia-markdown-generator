@@ -28,14 +28,23 @@ def generate_markdown(topic):
         ):
             markdown_text += f"{sections[i]}\n{sections[i+1]}\n\n"
 
+    # Create a directory for markdown files
+    output_directory = "md_output"
+    os.makedirs(output_directory, exist_ok=True)
+
+    # Create a directory for image files
+    image_directory = os.path.join(output_directory, "images")
+    os.makedirs(image_directory, exist_ok=True)
+
     for image_url in page.images:
         image_filename = urllib.parse.unquote(os.path.basename(image_url))
+        image_path = os.path.join(image_directory, image_filename)
         image_data = requests.get(image_url).content
-        with open(image_filename, "wb") as image_file:
+        with open(image_path, "wb") as image_file:
             image_file.write(image_data)
-        markdown_text += f"![{image_filename}](./{image_filename})\n"
+        markdown_text += f"![{image_filename}](./images/{image_filename})\n"
 
-    filename = f'{topic.replace(" ", "_")}.md'
+    filename = os.path.join(output_directory, f'{topic.replace(" ", "_")}.md')
 
     with open(filename, "w") as md_file:
         md_file.write(markdown_text)
