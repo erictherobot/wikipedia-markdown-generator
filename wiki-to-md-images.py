@@ -46,7 +46,7 @@ def generate_markdown(topic):
 
     filename = os.path.join(output_directory, f'{topic.replace(" ", "_")}.md')
 
-    with open(filename, "w") as md_file:
+    with open(filename, "w", encoding="utf-8") as md_file:
         md_file.write(markdown_text)
 
     print(f"Markdown file created: {filename}")
