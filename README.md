@@ -20,6 +20,19 @@ pip3 install -r requirements.txt
 python3 wiki-to-md.py <topic_name>
 ```
 
+Specifying if you want to download the images is optional. It is set to `yes` 
+by default, you can set it to `no`.
+
+```bash
+python3 wiki-to-md.py --image-dl=no <topic_name>
+```
+
+For help:
+
+```bash
+python3 wiki-to-md.py --help
+```
+
 ## Output
 
 The output is a Markdown file with the same name as the topic name under the newly created directory `md_output` if using `wiki-to-md.py`. If you want to download images too, use the `wiki-to-md-images.py` file and the images will be placed inside `md_output/images/`.
