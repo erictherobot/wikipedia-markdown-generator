@@ -6,7 +6,7 @@ import requests
 import urllib.parse
 
 
-def generate_markdown(topic):
+def generate_markdown(topic, download_images):
     try:
         page = wikipedia.page(topic)
     except wikipedia.exceptions.DisambiguationError as e:
@@ -32,21 +32,22 @@ def generate_markdown(topic):
     output_directory = "md_output"
     os.makedirs(output_directory, exist_ok=True)
 
-    # Create a directory for image files
-    image_directory = os.path.join(output_directory, "images")
-    os.makedirs(image_directory, exist_ok=True)
+    if download_images:
+        # Create a directory for image files
+        image_directory = os.path.join(output_directory, "images")
+        os.makedirs(image_directory, exist_ok=True)
 
-    for image_url in page.images:
-        image_filename = urllib.parse.unquote(os.path.basename(image_url))
-        image_path = os.path.join(image_directory, image_filename)
-        image_data = requests.get(image_url).content
-        with open(image_path, "wb") as image_file:
-            image_file.write(image_data)
-        markdown_text += f"![{image_filename}](./images/{image_filename})\n"
+        for image_url in page.images:
+            image_filename = urllib.parse.unquote(os.path.basename(image_url))
+            image_path = os.path.join(image_directory, image_filename)
+            image_data = requests.get(image_url).content
+            with open(image_path, "wb") as image_file:
+                image_file.write(image_data)
+            markdown_text += f"![{image_filename}](./images/{image_filename})\n"
 
     filename = os.path.join(output_directory, f'{topic.replace(" ", "_")}.md')
 
-    with open(filename, "w") as md_file:
+    with open(filename, "w", encoding="utf-8") as md_file:
         md_file.write(markdown_text)
 
     print(f"Markdown file created: {filename}")
@@ -61,9 +62,16 @@ parser.add_argument(
     type=str,
     help="The topic to generate a markdown file for.",
 )
+parser.add_argument(
+    "--dl-image",
+    choices=['yes', 'no'],
+    default='yes',
+    help="Specify whether to download images (yes or no).",
+)
 
 args = parser.parse_args()
 
 topic = f"{args.topic}"
+download_images = args.dl_image == 'yes'
 
-generate_markdown(topic)
+generate_markdown(topic, download_images)
