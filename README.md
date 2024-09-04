@@ -24,13 +24,14 @@ Specifying if you want to download the images is optional. It is set to `yes`
 by default, you can set it to `no`.
 
 ```bash
-python3 wiki-to-md.py --image-dl=no <topic_name>
+python3 wiki-to-md-images.py --image-dl=no <topic_name>
 ```
 
 For help:
 
 ```bash
 python3 wiki-to-md.py --help
+python3 wiki-to-md--images.py --help
 ```
 
 ## Output
