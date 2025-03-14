@@ -6,7 +6,7 @@ import re
 
 def generate_markdown(topic):
     try:
-        page = wikipedia.page(topic)
+        page = wikipedia.page(topic, auto_suggest=False)
     except wikipedia.exceptions.DisambiguationError as e:
         print(e.options)
         return None
