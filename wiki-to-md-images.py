@@ -68,8 +68,17 @@ parser.add_argument(
     default='yes',
     help="Specify whether to download images (yes or no).",
 )
+parser.add_argument(
+    "--lang",
+    type=str,
+    default="en",
+    help="The 2-letter language code for the Wikipedia page (default: 'en')."
+)
 
 args = parser.parse_args()
+
+# Set the language for Wikipedia if provided
+wikipedia.set_lang(args.lang)
 
 topic = f"{args.topic}"
 download_images = args.dl_image == 'yes'

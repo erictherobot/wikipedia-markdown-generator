@@ -47,9 +47,19 @@ parser.add_argument(
     type=str,
     help="The topic to generate a markdown file for.",
 )
+parser.add_argument(
+    "--lang",
+    type=str,
+    default="en",
+    help="The 2-letter language code for the Wikipedia page (default: 'en')."
+)
 
 args = parser.parse_args()
+
+# Set the language for Wikipedia if provided
+wikipedia.set_lang(args.lang)
 
 topic = f"{args.topic}"
 
 generate_markdown(topic)
+
