@@ -8,7 +8,7 @@ import urllib.parse
 
 def generate_markdown(topic, download_images):
     try:
-        page = wikipedia.page(topic)
+        page = wikipedia.page(topic, auto_suggest=False)
     except wikipedia.exceptions.DisambiguationError as e:
         print(e.options)
         return None
